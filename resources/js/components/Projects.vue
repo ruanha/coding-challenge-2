@@ -38,7 +38,7 @@
                 </tbody>
             </table>
         </div>
-        <add-project ref="add"></add-project>
+        <add-project v-bind="$props" ref="add"></add-project>
         <edit-project ref="edit"></edit-project>
     </div>
 </template>

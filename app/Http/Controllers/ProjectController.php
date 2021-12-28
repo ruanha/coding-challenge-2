@@ -32,6 +32,9 @@ class ProjectController extends Controller
 
     public function update(Request $request)
     {
+        if ($this->nameExists($request->get('name'))) {
+            return response()->json(['status' => 'project with that name already exist']);
+        }
         $project = Project::find($request->get('id'));
         $project->name = $request->get('name');
         $project->save();

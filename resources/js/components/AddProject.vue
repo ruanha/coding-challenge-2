@@ -3,18 +3,21 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add Project</h5>
+                    <h5 class="modal-title">Add Project1</h5>
                     <button type="button" class="close" @click.prevent="closeModal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="project_name">Project name</label>
-                        <input type="text" name="project_name" id="project_name" class="form-control" v-model="projectName" />
+                        <input value="{ projectName }" type="text" name="project_name" id="project_name" class="form-control" v-bind:class="{ 'is-invalid': isInvalid }" v-model="projectName" />
+                            <div class="invalid-feedback">
+                                A project with that name already exist
+                            </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @click.prevent="closeModal">Cancel</button>
-                    <button type="button" class="btn btn-success" @click.prevent="submit">Save project</button>
+                    <button type="button" :disabled="isInvalid" class="btn btn-success" @click.prevent="submit">Save project</button>
                 </div>
             </div>
         </div>
@@ -24,8 +27,10 @@
 <script>
 export default {
     data: () => ({
-        projectName: ''
+        projectName: '',
+        isInvalid: false,
     }),
+    props: ['projects'],
     methods: {
         open() {
            $(this.$refs.modal).modal('show');
@@ -34,11 +39,25 @@ export default {
             $(this.$refs.modal).modal('hide');
             this.projectName = '';
         },
-        submit() {
-            axios.post('/projects/add', {
-                name: this.projectName
-            });
-            $(this.$refs.modal).modal('hide');
+        async submit() {
+            try {
+                let response = await axios.post('/projects/add', { name: this.projectName });
+                if (response.data.status !== 'success') {
+                    this.isInvalid = true;
+                }
+                else {
+                    $(this.$refs.modal).modal('hide');
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        },
+    },
+    watch: {
+        'projectName': function(val) {
+            this.isInvalid = this.$props.projects
+                .map((project) => project.name)
+                .includes(val)
         }
     }
 }
