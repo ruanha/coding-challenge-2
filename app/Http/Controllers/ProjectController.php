@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+
     }
 
     public function show(int $projectID)
@@ -20,6 +21,9 @@ class ProjectController extends Controller
 
     public function add(Request $request)
     {
+        if ($this->nameExists($request->get('name'))) {
+            return response()->json(['status' => 'project with that name already exist']);
+        }
         Project::create([
             'name' => $request->get('name')
         ]);
@@ -32,5 +36,9 @@ class ProjectController extends Controller
         $project->name = $request->get('name');
         $project->save();
         return response()->json(['status' => 'success']);
+    }
+
+    protected function nameExists(string $name){
+        return null !== Project::where('name', $name)->first();
     }
 }
