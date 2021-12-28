@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="entry in project.entries">
+                <tr v-for="(entry, index) in project.entries" :key="index">
                     <td v-text="entry.start"></td>
                     <td v-text="entry.end"></td>
                     <td>
