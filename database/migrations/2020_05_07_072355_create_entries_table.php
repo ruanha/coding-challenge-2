@@ -15,10 +15,13 @@ class CreateEntriesTable extends Migration
     {
         Schema::create('entries', function (Blueprint $table) {
             $table->id();
+
             $table->dateTime('start');
-            $table->dateTime('end');
-            $table->unsignedBigInteger('project_id');
+            $table->dateTime('end')->nullable();
             $table->timestamps();
+
+            $table->unsignedBigInteger('project_id')->index()->default(1);
+            $table->foreign('project_id')->references('id')->on('projects');
         });
     }
 

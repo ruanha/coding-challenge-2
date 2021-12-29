@@ -19,12 +19,12 @@ For a GUI, Bob does not need much, but he must be able to see an overview of the
 ## Tasks:
 These objectives are mandatory:
 
-1. ~~New user registration should be disabled. ~~
+1. ~~New user registration should be disabled.~~
 2. ~~Implement database user seed with email:test@example.com, password:secret (for testing purpose).~~
 3. ~~If the user isn't logged in, all URLs should redirect to the login page.~~
 4. ~~Verify project name are unique and display error when submitting existing name.~~
 5. Calculate total time (hours, minutes, seconds format) spent on a project and display it in the overview.
-6. Add functionality to support adding entries to projects.
+6. ~~Add functionality to support adding entries to projects.~~
 7. ~~Make auth middleware global, instead of in constructors of controllers.~~
 8. It should be possible to delete entries and projects.
 9. Readme file of how to bootstrap (setup) your solution, so we can run it on our computer.
