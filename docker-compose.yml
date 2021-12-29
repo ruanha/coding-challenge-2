@@ -6,7 +6,7 @@ services:
         user: rune
         uid: 1000
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.app
     image: projects
     container_name: projects-app
     restart: unless-stopped
@@ -41,6 +41,19 @@ services:
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     networks:
       - projects
+  
+  node:
+    build:
+      context: ./
+      dockerfile: Dockerfile.node
+    container_name: projects-node
+    tty: true
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    networks: 
+      - projects
+    command: bash -c "npm install && npm run watch"
 
 networks:
   projects:
