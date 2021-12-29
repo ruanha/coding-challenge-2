@@ -23,7 +23,7 @@ These objectives are mandatory:
 2. ~~Implement database user seed with email:test@example.com, password:secret (for testing purpose).~~
 3. ~~If the user isn't logged in, all URLs should redirect to the login page.~~
 4. ~~Verify project name are unique and display error when submitting existing name.~~
-5. Calculate total time (hours, minutes, seconds format) spent on a project and display it in the overview.
+5. ~~Calculate total time (hours, minutes, seconds format) spent on a project and display it in the overview.~~
 6. ~~Add functionality to support adding entries to projects.~~
 7. ~~Make auth middleware global, instead of in constructors of controllers.~~
 8. It should be possible to delete entries and projects.
