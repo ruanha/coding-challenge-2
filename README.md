@@ -38,7 +38,6 @@ These objectives are optional:
 
 ## How to setup
 ```
-> npm install
 > docker-compose up --build -d
 > docker-compose exec app composer install
 > docker-compose exec app php artisan key:generate
