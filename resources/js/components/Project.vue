@@ -26,8 +26,7 @@
                     <td v-text="entry.start"></td>
                     <td v-text="entry.end"></td>
                     <td>
-                        <!-- TODO: Calculate time spent -->
-                        0 hours
+                        {{ formatTime(entry) }}
                     </td>
                 </tr>
             </tbody>
@@ -40,17 +39,56 @@ export default {
     name: "Project",
     props: ['project'],
     data: () => ({
-        running: false
+        running: false,
+        millisecondsPerHour: 1000 * 60 * 60
     }),
     methods: {
+        formatTime(entry) {
+            var diff = new Date(entry.end) - new Date(entry.start);
+            var hours = Math.floor(diff / 3.6e5);
+            var minutes = Math.floor((diff % 3.6e5) / 6e4);
+            var seconds = Math.floor((diff % 6e4) / 1000);
+            return `${hours} hrs, ${minutes} min and ${seconds} sec`;
+        },
         startTimer() {
+            this.addEntry();
+            console.log(this.$props.project);
             this.running = true;
-            // TODO: Implement start functionality
         },
         stopTimer() {
             this.running = false;
-            // TODO: Implement stop functionality
-        }
+            this.updateEntry();
+        },
+        async addEntry() {
+            console.log("start entry for project: " + this.$props.project.id);
+            try {
+                let response = await axios.post('/entries/start', { project_id: this.$props.project.id });
+                console.log(response);
+                if (response.data.status === 'success') {
+                    console.log('much success!');
+                }
+                else {
+                    console.log('much failure!');
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        async updateEntry() {
+            console.log("stop entry for project: " + this.$props.project.id);
+            try {
+                let response = await axios.post('/entries/stop', { project_id: this.$props.project.id });
+                if (response.data.status === 'success') {
+                    console.log('much success!');
+                    console.log(response)
+                }
+                else {
+                    console.log('much failure!');
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        },
     }
 }
 </script>
