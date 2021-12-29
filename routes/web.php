@@ -33,6 +33,7 @@ Route::group( ['middleware' => 'auth' ], function()
     
     Route::post('/entries/start', 'EntryController@start');
     Route::post('/entries/stop', 'EntryController@stop');
+    Route::post('/entries/delete', 'EntryController@delete');
 });
 
 

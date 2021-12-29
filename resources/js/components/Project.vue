@@ -19,6 +19,7 @@
                     <th>Start date</th>
                     <th>End date</th>
                     <th>Time spent</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -28,6 +29,7 @@
                     <td>
                         {{ formatTime(entry) }}
                     </td>
+                    <td><button type="button" class="btn btn-sm btn-danger" @click.prevent="deleteEntry(entry)">Delete</button></td>
                 </tr>
             </tbody>
         </table>
@@ -44,12 +46,22 @@ export default {
         running: false
     }),
     methods: {
+        async deleteEntry(entry) {
+            try {
+                let response = await axios.post('/entries/delete', { id: entry.id });
+                if (response.data.status === 'success') {
+                    this.$props.project.entries = this.$props.project.entries.filter((item) => item.id !== entry.id);
+                    this.$forceUpdate();
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        },
         formatTime(entry) {
             return shared.formatTime(new Date(entry.end) - new Date(entry.start))
         },
         startTimer() {
             this.addEntry();
-            console.log(this.$props.project);
             this.running = true;
         },
         stopTimer() {
@@ -57,16 +69,8 @@ export default {
             this.updateEntry();
         },
         async addEntry() {
-            console.log("start entry for project: " + this.$props.project.id);
             try {
-                let response = await axios.post('/entries/start', { project_id: this.$props.project.id });
-                console.log(response);
-                if (response.data.status === 'success') {
-                    console.log('much success!');
-                }
-                else {
-                    console.log('much failure!');
-                }
+                await axios.post('/entries/start', { project_id: this.$props.project.id });
             } catch (error) {
                 console.error(error);
             }
@@ -74,14 +78,7 @@ export default {
         async updateEntry() {
             console.log("stop entry for project: " + this.$props.project.id);
             try {
-                let response = await axios.post('/entries/stop', { project_id: this.$props.project.id });
-                if (response.data.status === 'success') {
-                    console.log('much success!');
-                    console.log(response)
-                }
-                else {
-                    console.log('much failure!');
-                }
+                await axios.post('/entries/stop', { project_id: this.$props.project.id });
             } catch (error) {
                 console.error(error);
             }

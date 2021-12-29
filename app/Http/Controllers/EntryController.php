@@ -40,4 +40,12 @@ class EntryController extends Controller
             'entry' => $entry
         ]);
     }
+
+    public function delete(Request $request)
+    {
+        Entry::where('id', $request->get('id'))->delete();
+        return response()->json([
+            'status' => 'success',
+        ]);
+    }
 }
