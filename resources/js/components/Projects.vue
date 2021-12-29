@@ -23,13 +23,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(project, index) in projects" :key="index">
+                    <tr v-for="(project, index) in projectsData" :key="index">
                         <td v-text="project.name"></td>
                         <td v-text="project.entries.length"></td>
                         <td>
                             {{ formatTime(project.entries) }}
                         </td>
                         <td class="text-right">
+                            <button type="button" class="btn btn-sm btn-danger" @click.prevent="deleteProject(project)">Delete</button>
                             <button type="button" class="btn btn-sm btn-dark" @click.prevent="editProject(project)">Edit</button>
                             <a :href="`/projects/${project.id}`" class="btn btn-sm btn-secondary">Details</a>
                         </td>
@@ -55,7 +56,23 @@ export default {
         'edit-project': EditProject
     },
     props: ['projects'],
+    data() {
+        return {
+            projectsData: this.$props.projects
+        }
+    },
     methods: {
+        async deleteProject(project) {
+            try {
+                let response = await axios.post('/projects/delete', { id: project.id });
+                if (response.data.status === 'success') {
+                    this.projectsData = this.projectsData.filter((item) => item.id !== project.id);
+                    this.$forceUpdate();
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        },
         formatTime(entries) {
             console.log(entries);
             return shared.formatTime(

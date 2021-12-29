@@ -20,7 +20,7 @@ class CreateEntriesTable extends Migration
             $table->dateTime('end')->nullable();
             $table->timestamps();
 
-            $table->unsignedBigInteger('project_id')->index()->default(1);
+            $table->unsignedBigInteger('project_id')->nullable();
             $table->foreign('project_id')->references('id')->on('projects');
         });
     }

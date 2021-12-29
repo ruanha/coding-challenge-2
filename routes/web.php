@@ -29,7 +29,7 @@ Route::group( ['middleware' => 'auth' ], function()
     Route::get('/projects/{id}', 'ProjectController@show');
     Route::post('/projects/add', 'ProjectController@add');
     Route::post('/projects/update', 'ProjectController@update');
-    Route::get('/projects', 'ProjectController@all');
+    Route::post('/projects/delete', 'ProjectController@delete');
     
     Route::post('/entries/start', 'EntryController@start');
     Route::post('/entries/stop', 'EntryController@stop');

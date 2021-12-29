@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Project;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -43,5 +42,15 @@ class ProjectController extends Controller
 
     protected function nameExists(string $name){
         return null !== Project::where('name', $name)->first();
+    }
+
+    public function delete(Request $request)
+    {
+        $project = Project::with('entries')->find($request->get('id'));
+        $project->entries()->delete();
+        $project->delete();
+        return response()->json([
+            'status' => 'success',
+        ]);
     }
 }
