@@ -35,20 +35,17 @@
 </template>
 
 <script>
+import shared from '../shared';
+
 export default {
     name: "Project",
     props: ['project'],
     data: () => ({
-        running: false,
-        millisecondsPerHour: 1000 * 60 * 60
+        running: false
     }),
     methods: {
         formatTime(entry) {
-            var diff = new Date(entry.end) - new Date(entry.start);
-            var hours = Math.floor(diff / 3.6e5);
-            var minutes = Math.floor((diff % 3.6e5) / 6e4);
-            var seconds = Math.floor((diff % 6e4) / 1000);
-            return `${hours} hrs, ${minutes} min and ${seconds} sec`;
+            return shared.formatTime(new Date(entry.end) - new Date(entry.start))
         },
         startTimer() {
             this.addEntry();

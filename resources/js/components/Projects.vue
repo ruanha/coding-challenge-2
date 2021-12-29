@@ -27,8 +27,7 @@
                         <td v-text="project.name"></td>
                         <td v-text="project.entries.length"></td>
                         <td>
-                            <!-- TODO: Calculate total hours spent -->
-                            0 hours
+                            {{ formatTime(project.entries) }}
                         </td>
                         <td class="text-right">
                             <button type="button" class="btn btn-sm btn-dark" @click.prevent="editProject(project)">Edit</button>
@@ -47,6 +46,8 @@
 import AddProject from "./AddProject";
 import EditProject from "./EditProject";
 
+import shared from '../shared';
+
 export default {
     name: "Projects",
     components: {
@@ -55,7 +56,12 @@ export default {
     },
     props: ['projects'],
     methods: {
-        addProject() {
+        formatTime(entries) {
+            console.log(entries);
+            return shared.formatTime(
+                entries.reduce((total, entry) => total += (new Date(entry.end) - new Date(entry.start)), 0));
+        },
+         addProject() {
             this.$refs.add.open();
         },
         editProject(project) {
