@@ -26,7 +26,7 @@ These objectives are mandatory:
 5. ~~Calculate total time (hours, minutes, seconds format) spent on a project and display it in the overview.~~
 6. ~~Add functionality to support adding entries to projects.~~
 7. ~~Make auth middleware global, instead of in constructors of controllers.~~
-8. It should be possible to delete entries and projects.
+8. ~~It should be possible to delete entries and projects.~~
 9. Readme file of how to bootstrap (setup) your solution, so we can run it on our computer.
 
 ## Bonus:
@@ -37,10 +37,18 @@ These objectives are optional:
 12. ~~Set Up Laravel, Nginx, and MySQL with Docker Compose for your solution.~~
 
 ## How to setup
+1. clone the repository from git
+2. enter the directory "coding-challenge-2"
+3. copy the ".env.example" file to ".env"
+4. run the following commands:
 ```
 > docker-compose up --build -d
 > docker-compose exec app composer install
 > docker-compose exec app php artisan key:generate
 > docker-compose exec app php artisan migrate
 > docker-compose exec app php artisan db:seed
+```
+5. all containers should be running:
+````
+> docker-compose ps
 ```
