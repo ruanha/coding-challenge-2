@@ -15,7 +15,7 @@ services:
       - ./:/var/www
     networks:
       - projects
-
+      
   db:
     image: mysql:5.7
     container_name: projects-db
@@ -48,6 +48,7 @@ services:
       dockerfile: Dockerfile.node
     container_name: projects-node
     tty: true
+    working_dir: /usr/src/app
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
