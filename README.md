@@ -27,7 +27,7 @@ These objectives are mandatory:
 6. ~~Add functionality to support adding entries to projects.~~
 7. ~~Make auth middleware global, instead of in constructors of controllers.~~
 8. ~~It should be possible to delete entries and projects.~~
-9. Readme file of how to bootstrap (setup) your solution, so we can run it on our computer.
+9. ~~Readme file of how to bootstrap (setup) your solution, so we can run it on our computer.~~
 
 ## Bonus:
 These objectives are optional:
@@ -42,7 +42,7 @@ These objectives are optional:
 3. copy the ".env.example" file to ".env"
 4. run the following commands:
 ```
-> docker-compose up --build -d
+> docker-compose up -d
 > docker-compose exec app composer install
 > docker-compose exec app php artisan key:generate
 > docker-compose exec app php artisan migrate --seed
