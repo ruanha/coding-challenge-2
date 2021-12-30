@@ -45,10 +45,10 @@ These objectives are optional:
 > docker-compose up --build -d
 > docker-compose exec app composer install
 > docker-compose exec app php artisan key:generate
-> docker-compose exec app php artisan migrate
-> docker-compose exec app php artisan db:seed
+> docker-compose exec app php artisan migrate --seed
 ```
 5. all containers should be running:
-````
+```
 > docker-compose ps
 ```
+6. app is running on: http://localhost:8000/home
