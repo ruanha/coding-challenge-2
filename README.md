@@ -52,3 +52,8 @@ These objectives are optional:
 > docker-compose ps
 ```
 6. app is running on: http://localhost:8000/home
+7. login with test user as defined in .env.example:
+```
+email: test@example.com
+password: secret
+```
