@@ -27,7 +27,7 @@
                         <td v-text="project.name"></td>
                         <td v-text="project.entries.length"></td>
                         <td>
-                            {{ formatTime(project.entries) }}
+                            {{ accumulatedTime(project.entries) }}
                         </td>
                         <td class="text-right">
                             <button type="button" class="btn btn-sm btn-danger" @click.prevent="deleteProject(project)">Delete</button>
@@ -39,7 +39,7 @@
             </table>
         </div>
         <add-project v-bind="$props" ref="add"></add-project>
-        <edit-project ref="edit"></edit-project>
+        <edit-project v-bind="$props" ref="edit"></edit-project>
     </div>
 </template>
 
@@ -47,7 +47,7 @@
 import AddProject from "./AddProject";
 import EditProject from "./EditProject";
 
-import shared from '../shared';
+import { formatTime } from '../shared';
 
 export default {
     name: "Projects",
@@ -73,9 +73,8 @@ export default {
                 console.error(error);
             }
         },
-        formatTime(entries) {
-            console.log(entries);
-            return shared.formatTime(
+        accumulatedTime(entries) {
+            return formatTime(
                 entries.reduce((total, entry) => total += (new Date(entry.end) - new Date(entry.start)), 0));
         },
          addProject() {
