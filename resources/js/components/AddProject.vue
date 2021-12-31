@@ -3,16 +3,16 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add Project1</h5>
+                    <h5 class="modal-title">Add Project</h5>
                     <button type="button" class="close" @click.prevent="closeModal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="project_name">Project name</label>
                         <input value="{ projectName }" type="text" name="project_name" id="project_name" class="form-control" v-bind:class="{ 'is-invalid': isInvalid }" v-model="projectName" />
-                            <div class="invalid-feedback">
-                                A project with that name already exist
-                            </div>
+                        <div class="invalid-feedback">
+                            A project with that name already exist
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -42,11 +42,11 @@ export default {
         async submit() {
             try {
                 let response = await axios.post('/projects/add', { name: this.projectName });
-                if (response.data.status !== 'success') {
-                    this.isInvalid = true;
+                if (response.data.status === 'success') {
+                    $(this.$refs.modal).modal('hide');
                 }
                 else {
-                    $(this.$refs.modal).modal('hide');
+                    this.isInvalid = true;
                 }
             } catch (error) {
                 console.error(error);

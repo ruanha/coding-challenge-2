@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import shared from '../shared';
+import { formatTime } from '../shared';
 
 export default {
     name: "Project",
@@ -58,7 +58,7 @@ export default {
             }
         },
         formatTime(entry) {
-            return shared.formatTime(new Date(entry.end) - new Date(entry.start))
+            return formatTime(new Date(entry.end) - new Date(entry.start))
         },
         startTimer() {
             this.addEntry();
@@ -76,7 +76,6 @@ export default {
             }
         },
         async updateEntry() {
-            console.log("stop entry for project: " + this.$props.project.id);
             try {
                 await axios.post('/entries/stop', { project_id: this.$props.project.id });
             } catch (error) {

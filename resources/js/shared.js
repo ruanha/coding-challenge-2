@@ -1,6 +1,4 @@
-export default {
-    formatTime: function(milliseconds) {
-        console.log(milliseconds);
+function formatTime (milliseconds) {
         let msPerSec = 1000;
         let msPerMin = 60 * 1000;
         let msPerHour = 60 * 60 * 1000;
@@ -9,5 +7,6 @@ export default {
         var minutes = Math.floor((milliseconds % msPerHour) / msPerMin);
         var seconds = Math.floor((milliseconds % msPerMin) / msPerSec);
         return `${hours} hrs, ${minutes} min and ${seconds} sec`;
-    }
 }
+
+export { formatTime }

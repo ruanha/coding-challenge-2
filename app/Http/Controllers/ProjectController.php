@@ -21,7 +21,7 @@ class ProjectController extends Controller
     public function add(Request $request)
     {
         if ($this->nameExists($request->get('name'))) {
-            return response()->json(['status' => 'project with that name already exist']);
+            return response()->json(['status' => 'success']);
         }
         Project::create([
             'name' => $request->get('name')
@@ -32,7 +32,7 @@ class ProjectController extends Controller
     public function update(Request $request)
     {
         if ($this->nameExists($request->get('name'))) {
-            return response()->json(['status' => 'project with that name already exist']);
+            return response()->json(['status' => 'success']);
         }
         $project = Project::find($request->get('id'));
         $project->name = $request->get('name');
