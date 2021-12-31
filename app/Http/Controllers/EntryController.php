@@ -16,36 +16,26 @@ class EntryController extends Controller
     public function start(Request $request)
     {        
         $startTime = new DateTime();
-        $entry = Entry::create([
-            'start' => $startTime,
-        ]);
+        $entry = Entry::create(['start' => $startTime,]);
         $entry->project_id = $request->get('project_id');
         $entry->save();
 
-        return response()->json([
-            'status' => 'success',
-            'entry' => $entry
-        ]);
+        return response()->json(['status' => 'success']);
     }
 
     public function stop(Request $request)
     {
         $endTime = new DateTime();
-        $entry = Entry::where('project_id', $request->get('project_id'))
+        Entry::where('project_id', $request->get('project_id'))
             ->where('end', null)
             ->update(['end' => $endTime]);
 
-        return response()->json([
-            'status' => 'success',
-            'entry' => $entry
-        ]);
+        return response()->json(['status' => 'success']);
     }
 
     public function delete(Request $request)
     {
         Entry::where('id', $request->get('id'))->delete();
-        return response()->json([
-            'status' => 'success',
-        ]);
+        return response()->json(['status' => 'success']);
     }
 }

@@ -49,8 +49,6 @@ class ProjectController extends Controller
         $project = Project::with('entries')->find($request->get('id'));
         $project->entries()->delete();
         $project->delete();
-        return response()->json([
-            'status' => 'success',
-        ]);
+        return response()->json(['status' => 'success']);
     }
 }
